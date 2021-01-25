@@ -5707,7 +5707,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 330, y: 495}
+  m_ReferenceResolution: {x: 320, y: 480}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -6410,7 +6410,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -6464,6 +6464,7 @@ MonoBehaviour:
   field_size: {x: 3.3, y: 5}
   warning_time: 0.6
   warning_p: {fileID: 9041234695169494674, guid: 716938ba222c68747bc2b7b10a23f0f5, type: 3}
+  next_level_count: 5
 --- !u!114 &1977809025
 MonoBehaviour:
   m_ObjectHideFlags: 0
