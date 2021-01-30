@@ -15,10 +15,12 @@ public class LifeManager : MonoBehaviour
     [SerializeField]
     private float muteki = 2f;
 
+    [SerializeField]
     private SpriteRenderer SR_sc;
 
+    [SerializeField]
     private bool damaged = false;
-    private int frame = 0;
+    private int flame = 0;
 
     private Timer timer_sc;
 
@@ -26,7 +28,7 @@ public class LifeManager : MonoBehaviour
     void Start()
     {
         timer_sc = Camera.main.GetComponent<Timer>();
-        SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
+        //SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
         RB2D = GetComponent<Rigidbody2D>();
         for(int i = 0; i < 5; i++)
         {
@@ -41,18 +43,21 @@ public class LifeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Color c = new Color(1, 1, 1, 1);
+
         if (damaged)
         {
-            float alpha;
-            frame++;
-            alpha = frame % 2;
-
-            SR_sc.color = new Color(SR_sc.color.r, SR_sc.color.g, SR_sc.color.b, alpha);
+            flame++;
+            flame = flame % 2;
+            Debug.Log(SR_sc.color);
+            c.a = flame;
+            SR_sc.color = c;
         }
         else
         {
-            SR_sc.color = new Color(SR_sc.color.r, SR_sc.color.g, SR_sc.color.b, 1);
-            frame = 0;
+            c = new Color(SR_sc.color.r, SR_sc.color.g, SR_sc.color.b, 1);
+            SR_sc.color = c;
+            flame = 0;
         }
     }
 

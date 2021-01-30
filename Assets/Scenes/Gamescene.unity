@@ -398,6 +398,8 @@ MonoBehaviour:
   - {fileID: 694806564}
   - {fileID: 84901976}
   muteki: 2
+  SR_sc: {fileID: 797462778}
+  damaged: 0
 --- !u!114 &319349007
 MonoBehaviour:
   m_ObjectHideFlags: 0

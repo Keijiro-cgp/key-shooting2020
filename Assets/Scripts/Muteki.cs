@@ -39,7 +39,7 @@ public class Muteki : MonoBehaviour
     {
         if (!is_muteki)
         {
-            SR_sc.color = first_color_sr;
+            //SR_sc.color = first_color_sr;
             if (LM_sc.life > 1)
             {
                 if (Input.GetKeyDown(KeyCode.Space))

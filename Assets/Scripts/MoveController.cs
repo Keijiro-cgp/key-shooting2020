@@ -39,7 +39,6 @@ public class MoveController : MonoBehaviour
         if (transform.position.y < -move_limit.y)
             transform.position = new Vector2(transform.position.x, -move_limit.y);
 
-        transform.Translate(new Vector3(input_x * player_speed * Time.deltaTime
-            , input_y * player_speed * Time.deltaTime));
+        transform.Translate(new Vector3(input_x * player_speed * Time.deltaTime, input_y * player_speed * Time.deltaTime));
     }
 }

@@ -19,7 +19,7 @@ public class StartManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("SCORE_TEXT"))
         {
-            score_tx.text = "スコア:" + PlayerPrefs.GetString("SCORE_TEXT");
+            score_tx.text = "ハイスコア:" + PlayerPrefs.GetString("SCORE_TEXT");
         }
         else
         {
@@ -35,10 +35,15 @@ public class StartManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!pushed) StartCoroutine(Fadeout());
+        if(!pushed) StartCoroutine(Fadeout(1));  // 1:ゲームシーン
     }
 
-    private IEnumerator Fadeout()
+    public void PlayOpening()
+    {
+        if (!pushed) StartCoroutine(Fadeout(2));  // 2:オープニングシーン
+    }
+
+    private IEnumerator Fadeout(int scene_num)
     {
         pushed = true;
         for(float i = 0; i < 1f; )
@@ -47,6 +52,6 @@ public class StartManager : MonoBehaviour
             yield return null;
             i += Time.deltaTime;
         }
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(scene_num);
     }
 }
