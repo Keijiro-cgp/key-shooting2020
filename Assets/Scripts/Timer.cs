@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float time = 0f;
+    public static float time = 0f;
     public int time_i = 0;
     private int c;
 
-    private string minutes;
-    private string seconds;
-    private string comma;
+    private static string minutes;
+    private static string seconds;
+    private static string comma;
 
     [SerializeField]
     private Text text_sc;
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public string TimerText()
+    public static string TimerText()
     {
         return minutes + ":" + seconds + ":" + comma;
     }

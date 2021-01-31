@@ -28,7 +28,7 @@ public class Muteki : MonoBehaviour
     void Start()
     {
         SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
-        timer_sc = Camera.main.GetComponent<Timer>();
+        //timer_sc = Camera.main.GetComponent<Timer>();
         LM_sc = GetComponent<LifeManager>();
         first_color_sr = SR_sc.color;
         first_color_tx = muteki_text.color;
@@ -58,9 +58,9 @@ public class Muteki : MonoBehaviour
         else
         {
             Color color;
-            color.r = 0.5f + (0.5f * Mathf.Sin(timer_sc.time * 6f));
-            color.g = 0.5f + (0.5f * Mathf.Sin((timer_sc.time * 6f) + (Mathf.PI / 3f * 2f)));
-            color.b = 0.5f + (0.5f * Mathf.Sin((timer_sc.time * 6f) + (Mathf.PI / 3f * 4f)));
+            color.r = 0.5f + (0.5f * Mathf.Sin(Timer.time * 6f));
+            color.g = 0.5f + (0.5f * Mathf.Sin((Timer.time * 6f) + (Mathf.PI / 3f * 2f)));
+            color.b = 0.5f + (0.5f * Mathf.Sin((Timer.time * 6f) + (Mathf.PI / 3f * 4f)));
             color.a = 1;
 
             muteki_text.color = color;
@@ -71,6 +71,7 @@ public class Muteki : MonoBehaviour
 
     private IEnumerator AwakeMuteki()
     {
+        ScoreManager.AddCountMuteki();
         gameObject.layer = 8;  // 8:無敵レイヤー
         is_muteki = true;
         LM_sc.Muteki();

@@ -31,7 +31,7 @@ public class LifeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer_sc = Camera.main.GetComponent<Timer>();
+        //timer_sc = Camera.main.GetComponent<Timer>();
         //SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
         RB2D = GetComponent<Rigidbody2D>();
         for(int i = 0; i < 5; i++)
@@ -68,7 +68,7 @@ public class LifeManager : MonoBehaviour
 
         if (life == 1)
         {
-            image_color.a = 0.5f + (0.5f * Mathf.Sin(timer_sc.time * 6f));
+            image_color.a = 0.5f + (0.5f * Mathf.Sin(Timer.time * 6f));
             image_sc.color = image_color;
         }
         else
@@ -89,6 +89,7 @@ public class LifeManager : MonoBehaviour
         if (collision.transform.tag == "Gold")
         {
             Destroy(collision.gameObject);
+            ScoreManager.AddCountGold();
             if (life < 5)
             {
                 life++;
@@ -110,22 +111,8 @@ public class LifeManager : MonoBehaviour
     private IEnumerator Damaged()
     {
         if (life == 1)
-        {
-            if (PlayerPrefs.HasKey("HIGH_SCORE"))
-            {
-                if (PlayerPrefs.GetFloat("HIGH_SCORE") < timer_sc.time)
-                {
-                    PlayerPrefs.SetFloat("HIGH_SCORE", timer_sc.time);
-                    PlayerPrefs.SetString("SCORE_TEXT", timer_sc.TimerText());
-                }
-            }
-            else
-            {
-                PlayerPrefs.SetFloat("HIGH_SCORE", timer_sc.time);
-                PlayerPrefs.SetString("SCORE_TEXT", timer_sc.TimerText());
-            }
-            
-            SceneManager.LoadScene(0);
+        {   
+            SceneManager.LoadScene(3);  //リザルトシーンへ
         }
         life--;
         for (int i = 0; i < 5; i++)
