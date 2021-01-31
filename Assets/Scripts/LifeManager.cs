@@ -55,7 +55,7 @@ public class LifeManager : MonoBehaviour
         {
             flame++;
             flame = flame % 2;
-            Debug.Log(SR_sc.color);
+            //Debug.Log(SR_sc.color);
             c.a = flame;
             SR_sc.color = c;
         }
