@@ -18,8 +18,15 @@ public class Muteki : MonoBehaviour
 
     private SpriteRenderer SR_sc;
 
-    private Color first_color_sr;
-    private Color first_color_tx;
+    [SerializeField]
+    private Color color_ready;
+    [SerializeField]
+    private Color color_disable;
+
+    [SerializeField]
+    private Slider gage_slider;
+    [SerializeField]
+    private Image gage_image;
 
     [SerializeField]
     private float length = 8f;
@@ -30,8 +37,6 @@ public class Muteki : MonoBehaviour
         SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
         //timer_sc = Camera.main.GetComponent<Timer>();
         LM_sc = GetComponent<LifeManager>();
-        first_color_sr = SR_sc.color;
-        first_color_tx = muteki_text.color;
     }
 
     // Update is called once per frame
@@ -40,19 +45,21 @@ public class Muteki : MonoBehaviour
         if (!is_muteki)
         {
             //SR_sc.color = first_color_sr;
+            gage_slider.value = 1;
+            gage_image.color = new Color(1, 1, 1, 1);
             if (LM_sc.life > 1)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     StartCoroutine(AwakeMuteki());
                 }
-                muteki_text.color = new Color(1, 1, 1, 1);
-                press_text.color = new Color(1, 1, 1, 1);
+                muteki_text.color = color_ready;
+                //press_text.color = new Color(1, 1, 1, 1);
             }
             else
             {
-                muteki_text.color = first_color_tx;
-                press_text.color = first_color_tx;
+                muteki_text.color = color_disable;
+                //press_text.color = first_color_tx;
             }
         }
         else
@@ -63,8 +70,10 @@ public class Muteki : MonoBehaviour
             color.b = 0.5f + (0.5f * Mathf.Sin((Timer.time * 6f) + (Mathf.PI / 3f * 4f)));
             color.a = 1;
 
-            muteki_text.color = color;
-            press_text.color = color;
+            //muteki_text.color = color;
+
+            gage_image.color = color;
+            //press_text.color = color;
             SR_sc.color = color;
         }
     }
@@ -75,7 +84,12 @@ public class Muteki : MonoBehaviour
         gameObject.layer = 8;  // 8:無敵レイヤー
         is_muteki = true;
         LM_sc.Muteki();
-        yield return new WaitForSeconds(length);
+        //yield return new WaitForSeconds(length);
+        for(float f = 0; f <= length; f += Time.deltaTime)
+        {
+            gage_slider.value = Mathf.Lerp(1, 0, f / length);
+            yield return null;
+        }
         gameObject.layer = 0;  //0:Defaultレイヤー
         is_muteki = false;
     }

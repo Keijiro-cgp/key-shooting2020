@@ -23,6 +23,7 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        time = 0;
         c = (int)((time - time_i) * 100);
         minutes = (time_i / 60).ToString("D2");
         seconds = (time_i % 60).ToString("D2");
