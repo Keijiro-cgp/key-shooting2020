@@ -18,11 +18,15 @@ public class LifeManager : MonoBehaviour
     [SerializeField]
     private SpriteRenderer SR_sc;
 
+    private Image image_sc;
+
     [SerializeField]
     private bool damaged = false;
     private int flame = 0;
 
     private Timer timer_sc;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +42,14 @@ public class LifeManager : MonoBehaviour
                 image[i].SetActive(false);
             }
         }
+        image_sc = image[0].GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Color c = new Color(1, 1, 1, 1);
+        Color image_color = new Color(1, 1, 1, 1);
 
         if (damaged)
         {
@@ -55,9 +61,20 @@ public class LifeManager : MonoBehaviour
         }
         else
         {
-            c = new Color(SR_sc.color.r, SR_sc.color.g, SR_sc.color.b, 1);
+            c = new Color(1, 1, 1, 1);
             SR_sc.color = c;
             flame = 0;
+        }
+
+        if (life == 1)
+        {
+            image_color.a = 0.5f + (0.5f * Mathf.Sin(timer_sc.time * 6f));
+            image_sc.color = image_color;
+        }
+        else
+        {
+            image_color = new Color(1, 1, 1, 1);
+            image_sc.color = image_color;
         }
     }
 
