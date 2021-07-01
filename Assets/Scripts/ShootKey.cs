@@ -39,12 +39,18 @@ public class ShootKey : MonoBehaviour
     [SerializeField]
     private int next_level_count = 5;
 
+    [SerializeField]
+    private AudioClip warn_sound;
+    private AudioSource audioSource;
+
+
     // Start is called before the first frame update
     void Start()
     {
         timer_sc = GetComponent<Timer>();
         field_size = new Vector2(3f, 5f);
         player_go = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,11 +61,15 @@ public class ShootKey : MonoBehaviour
         {
             
             t = 0;
+            
             if (count == next_level_count)
             {
                 shoot_level++;
                 next_level_count = next_level_count * 2 + 1;
             }
+
+            if(shoot_level != 0) audioSource.PlayOneShot(warn_sound, 1f); ;
+
             for (int i = 0; i < shoot_level; i++)
             {
                 StartCoroutine(RandomShoot());

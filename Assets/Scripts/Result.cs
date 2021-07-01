@@ -34,9 +34,17 @@ public class Result : MonoBehaviour
 
     private bool pushed = false;
 
+    [SerializeField]
+    private AudioClip explosion_sound_1;
+    [SerializeField]
+    private AudioClip explosion_sound_2;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (PlayerPrefs.HasKey("HIGH_SCORE"))
         {
             high_score = PlayerPrefs.GetFloat("HIGH_SCORE");
@@ -72,7 +80,8 @@ public class Result : MonoBehaviour
     private IEnumerator ShowResult()
     {
         yield return new WaitForSeconds(wait_time);
-        for(int i = 0; i < 2; i++)
+        audioSource.PlayOneShot(explosion_sound_1, 0.8f);
+        for (int i = 0; i < 2; i++)
         {
             Vector3 size = results[i].transform.localScale;
             results[i].SetActive(true);
@@ -88,17 +97,21 @@ public class Result : MonoBehaviour
 
     private IEnumerator ShowStatus(GameObject[] status)
     {
+        audioSource.PlayOneShot(explosion_sound_1, 0.8f);
         for(int i = 0; i < 2; i++)
         {
             Vector3 size = status[i].transform.localScale;
             status[i].SetActive(true);
+            
             StartCoroutine(Expand(status[i], size));
         }
         yield return new WaitForSeconds(wait_time);
+        audioSource.PlayOneShot(explosion_sound_1, 0.8f);
         for(int i = 2; i < 4; i++)
         {
             Vector3 size = status[i].transform.localScale;
             status[i].SetActive(true);
+            
             StartCoroutine(Expand(status[i], size));
         }
         yield return new WaitForSeconds(wait_time);
@@ -108,13 +121,14 @@ public class Result : MonoBehaviour
     {
         Vector3 size = status.transform.localScale;
         status.SetActive(true);
+        audioSource.PlayOneShot(explosion_sound_1, 0.8f);
         StartCoroutine(Expand(status, size));
         yield return new WaitForSeconds(wait_time);
     }
 
     private IEnumerator Expand(GameObject go, Vector3 size)
     {
-        for(int f = 0; f < 60 * wait_time; f++)
+        for (int f = 0; f < 60 * wait_time; f++)
         {
             go.transform.localScale = size * Mathf.Lerp(0, 1, (float)(f / 60f / wait_time));
             yield return null;
