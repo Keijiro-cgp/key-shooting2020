@@ -1336,6 +1336,7 @@ MonoBehaviour:
   black: {fileID: 719616075}
   explosion_sound_1: {fileID: 8300000, guid: edc0400dbf5510a48928a9cc54fb2afe, type: 3}
   explosion_sound_2: {fileID: 8300000, guid: 6efe8d1171252ec40a0a1f5650091c81, type: 3}
+  push_sound: {fileID: 8300000, guid: 3487ed6852c643a409adac72d70ebd3f, type: 3}
 --- !u!82 &590532496
 AudioSource:
   m_ObjectHideFlags: 0

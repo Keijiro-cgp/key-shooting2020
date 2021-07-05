@@ -38,6 +38,8 @@ public class Result : MonoBehaviour
     private AudioClip explosion_sound_1;
     [SerializeField]
     private AudioClip explosion_sound_2;
+    [SerializeField]
+    private AudioClip push_sound;
     private AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -128,10 +130,11 @@ public class Result : MonoBehaviour
 
     private IEnumerator Expand(GameObject go, Vector3 size)
     {
-        for (int f = 0; f < 60 * wait_time; f++)
+        for (float f = 0; f < wait_time; )
         {
-            go.transform.localScale = size * Mathf.Lerp(0, 1, (float)(f / 60f / wait_time));
+            go.transform.localScale = size * Mathf.Lerp(0, 1, 1 / wait_time * f);
             yield return null;
+            f += Time.deltaTime;
         }
     }
     
@@ -139,6 +142,9 @@ public class Result : MonoBehaviour
     {
         float y_start = -25;
         float y_end = 40;
+
+        float step;
+        step = (y_end - y_start);
 
         RectTransform[] rt = new RectTransform[2];
         for(int i = 0; i < 2; i++)
@@ -148,24 +154,28 @@ public class Result : MonoBehaviour
             rt[i].anchoredPosition = new Vector2(rt[i].localPosition.x, y_start);
         }
 
-        for(int f = 0; f < 60 * rise_time; f++)
+        while (rt[0].anchoredPosition.y < y_end)
         {
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
-                rt[i].anchoredPosition = new Vector2(rt[i].localPosition.x, Mathf.Lerp(y_start, y_end, (float)(f / 60f / rise_time)));
-                //if (i == 0) Debug.Log(Mathf.Lerp(y_start, y_end, (float)(f / 60f / wait_time)));
+                rt[i].anchoredPosition += new Vector2(0, step * Time.deltaTime);
             }
             yield return null;
         }
+
+        rt[0].anchoredPosition = new Vector2(rt[0].localPosition.x, y_end);
+        rt[1].anchoredPosition = new Vector2(rt[1].localPosition.x, y_end);
     }
 
     public void ReturnToStart()
     {
+        audioSource.PlayOneShot(push_sound, 0.9f);
         if (!pushed) StartCoroutine(Fadeout(0));
     }
 
     public void Retry()
     {
+        audioSource.PlayOneShot(push_sound, 0.9f);
         if (!pushed) StartCoroutine(Fadeout(1));
     }
 

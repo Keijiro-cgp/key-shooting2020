@@ -26,11 +26,22 @@ public class LifeManager : MonoBehaviour
 
     private Timer timer_sc;
 
+    [SerializeField]
+    private AudioClip damage_sound;
+    [SerializeField]
+    private AudioClip get_gold_sound;
+    private AudioSource audioSource;
+
+    public bool is_muteki = false;
+
+    [SerializeField]
+    private GameObject gold_drop;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         //timer_sc = Camera.main.GetComponent<Timer>();
         //SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
         RB2D = GetComponent<Rigidbody2D>();
@@ -90,6 +101,7 @@ public class LifeManager : MonoBehaviour
         {
             Destroy(collision.gameObject);
             ScoreManager.AddCountGold();
+            audioSource.PlayOneShot(get_gold_sound, 1);
             if (life < 5)
             {
                 life++;
@@ -110,8 +122,13 @@ public class LifeManager : MonoBehaviour
 
     private IEnumerator Damaged()
     {
+        audioSource.PlayOneShot(damage_sound, 1);
+        Instantiate(gold_drop, transform.position, Quaternion.identity);
         if (life == 1)
-        {   
+        {
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1;
             SceneManager.LoadScene(3);  //リザルトシーンへ
         }
         life--;
@@ -131,7 +148,7 @@ public class LifeManager : MonoBehaviour
         damaged = true;
         yield return new WaitForSeconds(muteki);
         damaged = false;
-        gameObject.layer = 0;  //0:Defaultレイヤー
+        if(!is_muteki) gameObject.layer = 0;  //0:Defaultレイヤー
     }
 
     public void Muteki()

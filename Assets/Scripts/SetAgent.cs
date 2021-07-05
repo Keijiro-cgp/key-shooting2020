@@ -66,7 +66,7 @@ public class SetAgent : MonoBehaviour
         audioSource = agent.GetComponent<AudioSource>();
         //agent.GetComponent<Rigidbody2D>().velocity = -Vector2.up * move_speed * timer_sc.acceleration;
         StartCoroutine(ShootKey(agent, n));
-        Destroy(agent, 5f);
+        //Destroy(agent, 5f);
         StartCoroutine(IntoScene(agent, n));
     }
 
@@ -99,5 +99,6 @@ public class SetAgent : MonoBehaviour
             agent.transform.Translate(-1f / 60f * -n, 0, 0);
             yield return null;
         }
+        Destroy(agent);
     }
 }

@@ -31,12 +31,17 @@ public class Muteki : MonoBehaviour
     [SerializeField]
     private float length = 8f;
 
+    [SerializeField]
+    private AudioClip muteki_sound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         SR_sc = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
         //timer_sc = Camera.main.GetComponent<Timer>();
         LM_sc = GetComponent<LifeManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -83,6 +88,8 @@ public class Muteki : MonoBehaviour
         ScoreManager.AddCountMuteki();
         gameObject.layer = 8;  // 8:無敵レイヤー
         is_muteki = true;
+        audioSource.PlayOneShot(muteki_sound, 0.8f);
+        LM_sc.is_muteki = true;
         LM_sc.Muteki();
         //yield return new WaitForSeconds(length);
         for(float f = 0; f <= length; f += Time.deltaTime)
@@ -92,5 +99,6 @@ public class Muteki : MonoBehaviour
         }
         gameObject.layer = 0;  //0:Defaultレイヤー
         is_muteki = false;
+        LM_sc.is_muteki = false;
     }
 }
