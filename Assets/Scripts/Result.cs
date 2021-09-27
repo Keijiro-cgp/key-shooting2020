@@ -143,8 +143,7 @@ public class Result : MonoBehaviour
         float y_start = -25;
         float y_end = 40;
 
-        float step;
-        step = (y_end - y_start);
+        //コンフリクトを起こす
 
         RectTransform[] rt = new RectTransform[2];
         for(int i = 0; i < 2; i++)
