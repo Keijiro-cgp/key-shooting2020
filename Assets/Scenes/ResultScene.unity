@@ -792,7 +792,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3084\u3081\u308B"
+  m_Text: "\u3082\u3069\u308B"
 --- !u!222 &277965769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1332,7 +1332,7 @@ MonoBehaviour:
   - {fileID: 209344550}
   highscore_text: {fileID: 54809296}
   wait_time: 0.4
-  rise_time: 3.5
+  rise_time: 0.5
   black: {fileID: 719616075}
   explosion_sound_1: {fileID: 8300000, guid: edc0400dbf5510a48928a9cc54fb2afe, type: 3}
   explosion_sound_2: {fileID: 8300000, guid: 6efe8d1171252ec40a0a1f5650091c81, type: 3}

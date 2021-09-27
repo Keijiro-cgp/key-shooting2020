@@ -143,7 +143,11 @@ public class Result : MonoBehaviour
         float y_start = -25;
         float y_end = 40;
 
+<<<<<<< Updated upstream
         //コンフリクトを起こす
+=======
+        float t = 0;
+>>>>>>> Stashed changes
 
         RectTransform[] rt = new RectTransform[2];
         for(int i = 0; i < 2; i++)
@@ -153,12 +157,13 @@ public class Result : MonoBehaviour
             rt[i].anchoredPosition = new Vector2(rt[i].localPosition.x, y_start);
         }
 
-        while (rt[0].anchoredPosition.y < y_end)
+        while(t <= rise_time)
         {
-            for (int i = 0; i < 2; i++)
+            for(int i=0; i<2; i++)
             {
-                rt[i].anchoredPosition += new Vector2(0, step * Time.deltaTime);
+                rt[i].anchoredPosition = new Vector2(rt[i].localPosition.x, Mathf.Lerp(y_start, y_end, t / rise_time));
             }
+            t += Time.deltaTime;
             yield return null;
         }
 
