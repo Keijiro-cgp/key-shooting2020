@@ -27,7 +27,7 @@ public class Result : MonoBehaviour
     private float wait_time = 0.4f;
 
     [SerializeField]
-    private float rise_time = 0.7f;
+    private float rise_time = 1.8f;
 
     [SerializeField]
     private Image black;
